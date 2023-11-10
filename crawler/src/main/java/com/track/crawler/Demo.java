@@ -16,6 +16,7 @@ import org.jsoup.select.Elements;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Demo {
@@ -25,10 +26,20 @@ public class Demo {
 //        String url = "http://localhost:8090/"; // 小说网页的URL
 //        String url = "https://www.plxs.co/book/146397/53690452.html"; // 小说网页的URL
         //        test2(url);
-        String url = "https://www.plxs.co/book/221045/"; // 小说网页的URL
-        String title = "74917026.html"; // 糖糖
-        String title1 = "53690452.html"; // 小茵
+        String url = "https://www.plxs.co/book/"; // 小说网页的URL
+        String title = "221045/74917026.html"; // 糖糖
+        String title1 = "146397/53690452.html"; // 小茵
+        String title2 = "56765/16127470.html"; // 小依
         testXY(url, title);
+
+//        List<String> bookIds = new ArrayList<>();
+//        bookIds.add(title);
+//        bookIds.add(title1);
+//        bookIds.add(title2);
+//        for (String bookId : bookIds){
+//            testXY(url, bookId);
+//        }
+
     }
 
     public static void test(String url) throws IOException {
