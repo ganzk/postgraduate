@@ -144,7 +144,7 @@ public class Demo {
                 }
             }
             //建立文件输出流，保存文本文件，以小说名作为文件名
-            FileWriter fw = new FileWriter(bookStr);
+            FileWriter fw = new FileWriter(bookStr, true);
 
 
             // 遍历内容元素并输出文本内容
@@ -155,8 +155,8 @@ public class Demo {
                     if(s.equals("<br>")){
 
                     } else {
-//                        fw.write(s.replace("&nbsp;", "")+"\r\n");
-                        System.out.println(s.replace("&nbsp;", ""));
+                        fw.write(s.replace("&nbsp;", "")+"\r\n");
+//                        System.out.println(s.replace("&nbsp;", ""));
                     }
                 }
             }
@@ -166,6 +166,7 @@ public class Demo {
             System.out.println(url + nextUrl);
             testXY(url, nextUrl);
 
+            // https://www.plxs.co/book/221045/74917135_2.html
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
