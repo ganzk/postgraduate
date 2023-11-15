@@ -20,7 +20,7 @@ public class PictureLOL {
         List<Hero> heros = JSON.parseArray(String.valueOf(jsonHero.get("hero")), Hero.class);
 
         for (Hero hero : heros) {
-            // 使用线程池
+            // todo 使用线程池
 
             String url = pictureUrl + hero.getHeroId() + ".js?ts=2832382";
             String skinStr = HttpClientUtil.doPost(url, "", "utf-8");
