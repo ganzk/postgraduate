@@ -23,15 +23,12 @@ public class Demo {
 
     // 读取网页小说，本地执行git命令，将读取的网页小说推送到git上
     public static void main(String[] args) {
-//        String url = "http://localhost:8090/"; // 小说网页的URL
-//        String url = "https://www.plxs.co/book/146397/53690452.html"; // 小说网页的URL
-        //        test2(url);
 
         String url = "https://www.plxs.co/book/"; // 小说网页的URL
+
 //        String title = "221045/74917026.html"; // 糖糖
 //        String title = "51560/13761662.html"; // 糖糖
         String title = "56239/15912102.html"; // 糖糖
-
 
         String title1 = "146397/53690452.html"; // 小茵
         String title2 = "56765/16127470.html"; // 小依
@@ -40,9 +37,7 @@ public class Demo {
         String title4 = "150878/53822381.html"; // 我的女友
         String title5 = "15447/4920031.html"; // 我的女友
 
-        // https://www.plxs.co/book/221045/74917026_2.html
-
-        testXY(url, title3);
+//        testXY(url, title3);
 
         List<String> bookIds = new ArrayList<>();
         bookIds.add(title);
@@ -52,6 +47,11 @@ public class Demo {
 //            testXY(url, bookId);
 //        }
 
+
+        // m.peblkbbbpd.com/book/25717808/10987846   7778888
+        String url1 = "https://m.peblkbbbpd.com/book/"; // 小说网页的URL
+        String title_url1 = "25717808/10987846.html"; // 我的女友
+        testXY(url1, title_url1);
     }
 
     public static void test(String url) throws IOException {
