@@ -26,16 +26,28 @@ public class Demo {
 //        String url = "http://localhost:8090/"; // 小说网页的URL
 //        String url = "https://www.plxs.co/book/146397/53690452.html"; // 小说网页的URL
         //        test2(url);
+
         String url = "https://www.plxs.co/book/"; // 小说网页的URL
-        String title = "221045/74917026.html"; // 糖糖
+//        String title = "221045/74917026.html"; // 糖糖
+//        String title = "51560/13761662.html"; // 糖糖
+        String title = "56239/15912102.html"; // 糖糖
+
+
         String title1 = "146397/53690452.html"; // 小茵
         String title2 = "56765/16127470.html"; // 小依
-        testXY(url, title);
 
-//        List<String> bookIds = new ArrayList<>();
-//        bookIds.add(title);
-//        bookIds.add(title1);
-//        bookIds.add(title2);
+        String title3 = "225164/74606432.html"; // 我的女友
+        String title4 = "150878/53822381.html"; // 我的女友
+        String title5 = "15447/4920031.html"; // 我的女友
+
+        // https://www.plxs.co/book/221045/74917026_2.html
+
+        testXY(url, title3);
+
+        List<String> bookIds = new ArrayList<>();
+        bookIds.add(title);
+        bookIds.add(title1);
+        bookIds.add(title2);
 //        for (String bookId : bookIds){
 //            testXY(url, bookId);
 //        }
@@ -146,8 +158,7 @@ public class Demo {
             String[] s1 = bookName.text().split("_");
             String bookStr = "d:/test/"+ s1[1] +".txt";
             File file=new File(bookStr);
-            if(!file.exists())
-            {
+            if(!file.exists()) {
                 try {
                     file.createNewFile();
                 } catch (IOException e) {
@@ -165,20 +176,26 @@ public class Demo {
                     String s = node.outerHtml();
                     if(s.equals("<br>")){
 
-                    } else {
-                        fw.write(s.replace("&nbsp;", "")+"\r\n");
-//                        System.out.println(s.replace("&nbsp;", ""));
+                    } else if (s.lastIndexOf("text-danger") > 0){
+
+                    }else {
+                        fw.write(s.replace("&nbsp;", "").replace("... --&gt;&gt;","")+"\r\n");
                     }
                 }
             }
 
-            //解析“下一章”按钮，得到下一章的URL
-            String nextUrl = doc.select("#linkNext").attr("href");
-            System.out.println(url + nextUrl);
-            testXY(url, nextUrl);
-
             // https://www.plxs.co/book/221045/74917135_2.html
             fw.close();
+
+            //解析“下一章”按钮，得到下一章的URL
+            String nextUrl = doc.select("#linkNext").attr("href");
+            if(nextUrl.lastIndexOf("https:") > 0){
+                return;
+            }
+            System.out.println(url + title.split("/")[0] + "/" + nextUrl);
+            nextUrl = title.split("/")[0] + "/" + nextUrl;
+            testXY(url, nextUrl);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
