@@ -43,15 +43,18 @@ public class Demo {
         bookIds.add(title);
         bookIds.add(title1);
         bookIds.add(title2);
+        bookIds.add(title3);
+        bookIds.add(title4);
+        bookIds.add(title5);
 //        for (String bookId : bookIds){
 //            testXY(url, bookId);
 //        }
 
 
         // m.peblkbbbpd.com/book/25717808/10987846   7778888
-        String url1 = "https://m.peblkbbbpd.com/book/"; // 小说网页的URL
-        String title_url1 = "25717808/10987846.html"; // 我的女友
-        testXY(url1, title_url1);
+        String url1 = "https://m.peblkbbbpd.com"; // 小说网页的URL
+        String title_url1 = "/book/25717808/10987846.html"; // 我的女友
+        testBQG(url1, title_url1);
     }
 
     public static void test(String url) throws IOException {
@@ -156,7 +159,7 @@ public class Demo {
 
             Elements bookName = doc.select("title");
             String[] s1 = bookName.text().split("_");
-            String bookStr = "d:/test/"+ s1[1] +".txt";
+            String bookStr = "e:/test/"+ s1[1] +".txt";
             File file=new File(bookStr);
             if(!file.exists()) {
                 try {
@@ -195,6 +198,71 @@ public class Demo {
             System.out.println(url + title.split("/")[0] + "/" + nextUrl);
             nextUrl = title.split("/")[0] + "/" + nextUrl;
             testXY(url, nextUrl);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static void testBQG(String url, String title){
+
+        try {
+
+            // https://101.qq.com/#/hero-detail?heroid=2
+            // 发起HTTP请求并获取网页内容
+            Document doc = Jsoup.connect(url + title).get();
+
+            System.out.println(url + title);
+
+            // 使用CSS选择器获取小说内容所在的HTML元素
+            Elements contentElements = doc.select("#booktxt");
+
+            Elements bookName = doc.select("title");
+            String[] s1 = bookName.text().split("_");
+            String bookStr = "e:/test/"+ s1[0] +".txt";
+            File file=new File(bookStr);
+            if(!file.exists()) {
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            //建立文件输出流，保存文本文件，以小说名作为文件名
+            FileWriter fw = new FileWriter(bookStr, true);
+
+
+            // 遍历内容元素并输出文本内容
+            for (Element element : contentElements) {
+                List<Node> nodes = element.childNodes();
+                for (Node node : nodes){
+                    String s = node.outerHtml();
+                    if(s.equals("<br>")){
+
+                    } else if (s.lastIndexOf("text-danger") > 0){
+
+                    }else {
+                        fw.write(s.replace("&nbsp;", "")
+                                .replace("... --&gt;&gt;","")
+                                .replace("<p>","")
+                                .replace("</p>","")
+                                +"\r\n");
+                    }
+                }
+            }
+
+            // https://www.plxs.co/book/221045/74917135_2.html
+            fw.close();
+
+            //解析“下一章”按钮，得到下一章的URL
+            String nextUrl = doc.select("#next_url").attr("href");
+            if("".equals(nextUrl)){
+                return;
+            }
+            System.out.println(url + nextUrl);
+            testBQG(url, nextUrl);
 
         } catch (IOException e) {
             e.printStackTrace();
