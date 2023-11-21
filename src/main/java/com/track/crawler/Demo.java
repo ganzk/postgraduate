@@ -37,21 +37,22 @@ public class Demo {
         String title4 = "150878/53822381.html"; // 我的女友
         String title5 = "15447/4920031.html"; // 我的女友
 
-//        testXY(url, title3);
+//        testPanLong(url, title3);
 
         List<String> bookIds = new ArrayList<>();
         bookIds.add(title);
         bookIds.add(title1);
         bookIds.add(title2);
 //        for (String bookId : bookIds){
-//            testXY(url, bookId);
+//            testPanLong(url, bookId);
 //        }
 
 
         // m.peblkbbbpd.com/book/25717808/10987846   7778888
+        // m.peblkbbbpd.com/20/20951/9943314.html
         String url1 = "https://m.peblkbbbpd.com/book/"; // 小说网页的URL
         String title_url1 = "25717808/10987846.html"; // 我的女友
-        testXY(url1, title_url1);
+//        testXY(url1, title_url1);
     }
 
     public static void test(String url) throws IOException {
@@ -141,7 +142,8 @@ public class Demo {
         }
     }
 
-    public static void testXY(String url, String title){
+    // 盘龙
+    public static void testPanLong(String url, String title){
 
         try {
 
@@ -194,7 +196,7 @@ public class Demo {
             }
             System.out.println(url + title.split("/")[0] + "/" + nextUrl);
             nextUrl = title.split("/")[0] + "/" + nextUrl;
-            testXY(url, nextUrl);
+            testPanLong(url, nextUrl);
 
         } catch (IOException e) {
             e.printStackTrace();
