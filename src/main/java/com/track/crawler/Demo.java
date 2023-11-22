@@ -10,53 +10,12 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
 import org.jsoup.select.Elements;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Demo {
-
-    // 读取网页小说，本地执行git命令，将读取的网页小说推送到git上
-    public static void main(String[] args) {
-
-        String url = "https://www.plxs.co/book/"; // 小说网页的URL
-
-//        String title = "221045/74917026.html"; // 糖糖
-//        String title = "51560/13761662.html"; // 糖糖
-        String title = "56239/15912102.html"; // 糖糖
-
-        String title1 = "146397/53690452.html"; // 小茵
-        String title2 = "56765/16127470.html"; // 小依
-
-        String title3 = "225164/74606432.html"; // 我的女友
-        String title4 = "150878/53822381.html"; // 我的女友
-        String title5 = "15447/4920031.html"; // 我的女友
-
-//        testPanLong(url, title3);
-
-        List<String> bookIds = new ArrayList<>();
-        bookIds.add(title);
-        bookIds.add(title1);
-        bookIds.add(title2);
-        bookIds.add(title3);
-        bookIds.add(title4);
-        bookIds.add(title5);
-//        for (String bookId : bookIds){
-//            testPanLong(url, bookId);
-//        }
-
-
-        // m.peblkbbbpd.com/book/25717808/10987846   7778888
-        // m.peblkbbbpd.com/20/20951/9943314.html
-        String url1 = "https://m.peblkbbbpd.com"; // 小说网页的URL
-        String title_url1 = "/book/25717808/10987846.html"; // 我的女友
-        testBQG(url1, title_url1);
-    }
 
     public static void test(String url) throws IOException {
         //小说第一章URL,因版权问题，url屏蔽，读者可自行选择
@@ -143,134 +102,6 @@ public class Demo {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    // 盘龙
-    public static void testPanLong(String url, String title){
-
-        try {
-
-            // https://101.qq.com/#/hero-detail?heroid=2
-            // 发起HTTP请求并获取网页内容
-            Document doc = Jsoup.connect(url + title).get();
-
-            System.out.println(url + title);
-
-            // 使用CSS选择器获取小说内容所在的HTML元素
-            Elements contentElements = doc.select(".panel-body");
-
-            Elements bookName = doc.select("title");
-            String[] s1 = bookName.text().split("_");
-            String bookStr = "d:/test/"+ s1[1] +".txt";
-            File file=new File(bookStr);
-            if(!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            //建立文件输出流，保存文本文件，以小说名作为文件名
-            FileWriter fw = new FileWriter(bookStr, true);
-
-
-            // 遍历内容元素并输出文本内容
-            for (Element element : contentElements) {
-                List<Node> nodes = element.childNodes();
-                for (Node node : nodes){
-                    String s = node.outerHtml();
-                    if(s.equals("<br>")){
-
-                    } else if (s.lastIndexOf("text-danger") > 0){
-
-                    }else {
-                        fw.write(s.replace("&nbsp;", "").replace("... --&gt;&gt;","")+"\r\n");
-                    }
-                }
-            }
-
-            // https://www.plxs.co/book/221045/74917135_2.html
-            fw.close();
-
-            //解析“下一章”按钮，得到下一章的URL
-            String nextUrl = doc.select("#linkNext").attr("href");
-            if(nextUrl.lastIndexOf("https:") > 0){
-                return;
-            }
-            System.out.println(url + title.split("/")[0] + "/" + nextUrl);
-            nextUrl = title.split("/")[0] + "/" + nextUrl;
-            testPanLong(url, nextUrl);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
-    public static void testBQG(String url, String title){
-
-        try {
-
-            // https://101.qq.com/#/hero-detail?heroid=2
-            // 发起HTTP请求并获取网页内容
-            Document doc = Jsoup.connect(url + title).get();
-
-            System.out.println(url + title);
-
-            // 使用CSS选择器获取小说内容所在的HTML元素
-            Elements contentElements = doc.select("#booktxt");
-
-            Elements bookName = doc.select("title");
-            String[] s1 = bookName.text().split("_");
-            String bookStr = "e:/test/"+ s1[0] +".txt";
-            File file=new File(bookStr);
-            if(!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            //建立文件输出流，保存文本文件，以小说名作为文件名
-            FileWriter fw = new FileWriter(bookStr, true);
-
-
-            // 遍历内容元素并输出文本内容
-            for (Element element : contentElements) {
-                List<Node> nodes = element.childNodes();
-                for (Node node : nodes){
-                    String s = node.outerHtml();
-                    if(s.equals("<br>")){
-
-                    } else if (s.lastIndexOf("text-danger") > 0){
-
-                    }else {
-                        fw.write(s.replace("&nbsp;", "")
-                                .replace("... --&gt;&gt;","")
-                                .replace("<p>","")
-                                .replace("</p>","")
-                                +"\r\n");
-                    }
-                }
-            }
-
-            // https://www.plxs.co/book/221045/74917135_2.html
-            fw.close();
-
-            //解析“下一章”按钮，得到下一章的URL
-            String nextUrl = doc.select("#next_url").attr("href");
-            if("".equals(nextUrl)){
-                return;
-            }
-            System.out.println(url + nextUrl);
-            testBQG(url, nextUrl);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
 }

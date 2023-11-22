@@ -1,0 +1,27 @@
+
+date: {"date":[{"url":"https://www.plxs.co/book/","name":"盘龙","books":[{"url":"56239/15912102.html","name":"糖糖"},{"url":"146397/53690452.html","name":"小茵"},{"url":"56765/16127470.html","name":"小依"},{"url":"225164/74606432.html","name":"我的女友"},{"url":"150878/53822381.html","name":""},{"url":"15447/4920031.html","name":""}]},{"url":"https://m.peblkbbbpd.com","name":"笔趣阁","books":[{"url":"/book/25717808/10987846.html","name":""},{"url":"/20/20951/9943314.html","name":""}]}]}
+hhhh: 11111
+crawler1:
+  - url: https://www.plxs.co/book/
+    name: pl
+    books:
+      - url: 56239/15912102.html
+        name: 糖糖
+      - url: 146397/53690452.html
+        name: 小茵
+      - url: 56765/16127470.html
+        name: 小依
+      - url: 225164/74606432.html
+        name: 我的女友
+      - url: 150878/53822381.html
+        name:
+      - url: 15447/4920031.html
+        name:
+
+  - url: https://m.peblkbbbpd.com
+    name: bqg
+    books:
+      - url: /book/25717808/10987846.html
+        name: 小倩
+      - url: /20/20951/9943314.html
+        name: 小茵
